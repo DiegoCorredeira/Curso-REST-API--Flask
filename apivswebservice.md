@@ -1,12 +1,12 @@
 # API
 
-    É a forma que terceiros disponibilizam uma interface de modo que possamos consumir um determinado serviço deles sem nos preocuparmos com a implementação do mesmo.
+ É a forma que terceiros disponibilizam uma interface de modo que possamos consumir um determinado serviço deles sem nos preocuparmos com a implementação do mesmo.
 
 ![1694874252396](image/apivswebservice/1694874252396.png)
 
 # Web Services
 
-    É uma API projetada pra se comunicar obrigatóriamente via rede.
+ É uma API projetada pra se comunicar obrigatóriamente via rede.
 
 Tipicamente, HTTP é o protocolo mais comumente usado para comunicação.
 
