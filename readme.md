@@ -8,5 +8,4 @@
 * [Coleções de Recursos](colecaoderecursos.md)
 * [Métodos HTTP e CRUD](metodoshttpecrud.md)
 * [Resposta HTTP no REST](respostarest.md)
-* [Autenticação REST](https://www.google.com)
-* [REST APIs ](https://www.google.com)
+* [Autenticação REST](autenticacaorest.md)
