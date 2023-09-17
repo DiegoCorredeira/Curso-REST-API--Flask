@@ -1,4 +1,4 @@
-# Como estruturar um REST API?
+# Como estruturar um REST API
 
 ### Quais recursos que uma API de rede social deve possuir? 
 
