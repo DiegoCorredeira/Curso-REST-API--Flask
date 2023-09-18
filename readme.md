@@ -9,3 +9,12 @@
 * [Métodos HTTP e CRUD](metodoshttpecrud.md)
 * [Resposta HTTP no REST](respostarest.md)
 * [Autenticação REST](autenticacaorest.md)
+
+# Seção 2 : Python Iniciante
+
+* [Hello World!](pythonIniciante/01.py)
+* [Compreensão de Listas](Compreensão de Lista (List Comprehension)).ipynb)
+* [Dicionários](pythonIniciante/Dicionários.ipynb)
+* [Listas, Tuplas e Sets](pythonIniciante/listas_tuplas_sets.ipynb)
+* [Loops (for e while)](pythonIniciante/Loops(while e for).ipynb)
+* [Hello World!](pythonIniciante/01.py)
