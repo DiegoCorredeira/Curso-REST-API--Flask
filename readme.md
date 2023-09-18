@@ -13,8 +13,7 @@
 # Seção 2 : Python Iniciante
 
 * [Hello World!](pythonIniciante/01.py)
-* [Compreensão de Listas](Compreensão de Lista (List Comprehension)).ipynb)
+* [Compreensão de Listas](pythonIniciante/CompreensãodeLista(ListComprehension))
 * [Dicionários](pythonIniciante/Dicionários.ipynb)
 * [Listas, Tuplas e Sets](pythonIniciante/listas_tuplas_sets.ipynb)
-* [Loops (for e while)](pythonIniciante/Loops(while e for).ipynb)
-* [Hello World!](pythonIniciante/01.py)
+* [Loops (for e while)](pythonIniciante/Loops(whileefor).ipynb)
