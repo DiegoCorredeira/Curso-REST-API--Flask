@@ -30,14 +30,15 @@ humbug_songs = [
 
     }, 
     {
-        'id': 4,
-        'title': 'Secret Door',
-        'artist': 'Arctic Monkeys',
-        'album': 'Humbug',
-        'release_date': '2009-08-19',
-        'time': '3:43',
+        "id": 4,
+        "title": "Secret Door",
+        "artist": "Arctic Monkeys",
+        "album": "Humbug",
+        "release_date": "2009-08-19",
+        "time": "3:43",
         
     }
+
 
 ]
 
@@ -46,21 +47,27 @@ class HumbugSongs(Resource):
         return {'Humbug Songs': humbug_songs}
     
 class HumbugId(Resource):
-    def get(self, humbug_id):
+    args = reqparse.RequestParser()
+    args.add_argument('title')
+    args.add_argument('artist')
+    args.add_argument('album')
+    args.add_argument('release_date')
+    args.add_argument('time')
+
+    def find_song(humbug_id):
         for song in humbug_songs:
             if song['id'] == humbug_id:
                 return song
-        return {'message': 'Humbug song not found.'}, 404
+        return None
+    def get(self, humbug_id):
+        song = HumbugId.find_song(humbug_id)
+        if song:
+            return song
+        return {'Humbug Songs': None}, 404
        
     def post(self, humbug_id):
-        args = reqparse.RequestParser()
-        args.add_argument('title')
-        args.add_argument('artist')
-        args.add_argument('album')
-        args.add_argument('release_date')
-        args.add_argument('time')
 
-        data_post = args.parse_args()
+        data_post = HumbugId.args.parse_args()
 
         new_song = {
             'id': humbug_id,
@@ -72,9 +79,18 @@ class HumbugId(Resource):
         }
 
         humbug_songs.append(new_song)
-        return new_song, 201
+        return new_song, 200
 
     def put(self, humbug_id):
-        pass
+        data_put = HumbugId.args.parse_args()
+        new_song = { 'id': humbug_id, **data_put}
+        song = HumbugId.find_song(humbug_id)
+        if song: 
+            song.update(new_song)
+            return new_song, 200
+        
+        humbug_songs.append(new_song)
+        return new_song, 201
+
     def delete(self, humbug_id):
         pass
