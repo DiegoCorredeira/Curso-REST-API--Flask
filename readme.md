@@ -10,7 +10,7 @@
 * [Resposta HTTP no REST](respostarest.md)
 * [Autenticação REST](autenticacaorest.md)
 
-# Seção 2 : Python Iniciante
+### Seção 2 : Python Iniciante
 
 * [Hello World!](pythonIniciante/01.py)
 * [Compreensão de Listas](pythonIniciante/CompreensãodeLista(ListComprehension))
