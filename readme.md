@@ -22,3 +22,5 @@
 * [*args e **kwargs](pythonIniciante/argsEKwargs.ipynb)
 * [Listas, Tuplas e Sets](pythonIniciante/listas_tuplas_sets.ipynb)
 * [Loops (for e while)](pythonIniciante/Loops(whileefor).ipynb)
+
+### Seção 3: Aplicação REST com CRUD (em memória)
