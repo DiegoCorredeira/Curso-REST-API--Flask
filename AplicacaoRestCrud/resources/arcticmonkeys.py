@@ -1,4 +1,4 @@
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 
 humbug_songs = [
     {
@@ -38,6 +38,7 @@ humbug_songs = [
         'time': '3:43',
         
     }
+
 ]
 
 class HumbugSongs(Resource):
@@ -52,7 +53,27 @@ class HumbugId(Resource):
         return {'message': 'Humbug song not found.'}, 404
        
     def post(self, humbug_id):
-        pass
+        args = reqparse.RequestParser()
+        args.add_argument('title')
+        args.add_argument('artist')
+        args.add_argument('album')
+        args.add_argument('release_date')
+        args.add_argument('time')
+
+        data_post = args.parse_args()
+
+        new_song = {
+            'id': humbug_id,
+            'title': data_post['title'],
+            'artist': data_post['artist'],
+            'album': data_post['album'],
+            'release_date': data_post['release_date'],
+            'time': data_post['time']
+        }
+
+        humbug_songs.append(new_song)
+        return new_song, 201
+
     def put(self, humbug_id):
         pass
     def delete(self, humbug_id):

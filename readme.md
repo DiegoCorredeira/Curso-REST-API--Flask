@@ -24,3 +24,5 @@
 * [Loops (for e while)](pythonIniciante/Loops(whileefor).ipynb)
 
 ### Seção 3: Aplicação REST com CRUD (em memória)
+
+* [API de músicas do HUMBUG (arctic monkeys)](AplicacaoRestCrud/)
