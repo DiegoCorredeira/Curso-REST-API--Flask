@@ -40,6 +40,20 @@ humbug_songs = [
     }
 ]
 
-class Humbug(Resource):
+class HumbugSongs(Resource):
     def get(self):
         return {'Humbug Songs': humbug_songs}
+    
+class HumbugId(Resource):
+    def get(self, humbug_id):
+        for song in humbug_songs:
+            if song['id'] == humbug_id:
+                return song
+        return {'message': 'Humbug song not found.'}, 404
+       
+    def post(self, humbug_id):
+        pass
+    def put(self, humbug_id):
+        pass
+    def delete(self, humbug_id):
+        pass
