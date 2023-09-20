@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+from models.arcticmonkeys import HumbugModel
 
 humbug_songs = [
     {
@@ -40,6 +41,7 @@ humbug_songs = [
 ]
 
 
+
 class HumbugSongs(Resource):
     def get(self):
         return {'Humbug Songs': humbug_songs}
@@ -69,21 +71,13 @@ class HumbugId(Resource):
 
         data_post = HumbugId.args.parse_args()
 
-        new_song = {
-            'id': humbug_id,
-            'title': data_post['title'],
-            'artist': data_post['artist'],
-            'album': data_post['album'],
-            'release_date': data_post['release_date'],
-            'time': data_post['time']
-        }
-
+        new_song = HumbugModel(humbug_id, **data_post).json()
         humbug_songs.append(new_song)
         return new_song, 200
 
     def put(self, humbug_id):
         data_put = HumbugId.args.parse_args()
-        new_song = {'id': humbug_id, **data_put}
+        new_song = HumbugModel(humbug_id, **data_put).json()
         song = HumbugId.find_song(humbug_id)
         if song:
             song.update(new_song)
