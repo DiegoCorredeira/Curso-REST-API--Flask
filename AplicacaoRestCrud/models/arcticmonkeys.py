@@ -1,4 +1,16 @@
-class HumbugModel:
+from sql_alchemy import db
+
+
+class HumbugModel(db.Model):
+    __tablename__ = 'songs'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80))
+    artist = db.Column(db.String(80))
+    album = db.Column(db.String(80))
+    release_date = db.Column(db.Date)
+    time = db.Column(db.String(80))
+
     def __init__(self, id, title, artist, album, release_date, time):
         self.id = id
         self.title = title
