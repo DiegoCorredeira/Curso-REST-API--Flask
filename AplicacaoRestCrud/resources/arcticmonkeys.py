@@ -8,7 +8,7 @@ humbug_songs = [
         'album': 'Humbug',
         'release_date': '2009-08-19',
         'time': '3:27',
-        
+
     },
     {
         'id': 2,
@@ -17,7 +17,7 @@ humbug_songs = [
         'album': 'Humbug',
         'release_date': '2009-08-19',
         'time': '3:45',
-        
+
     },
     {
         'id': 3,
@@ -26,9 +26,8 @@ humbug_songs = [
         'album': 'Humbug',
         'release_date': '2009-08-19',
         'time': '3:30',
-        
 
-    }, 
+    },
     {
         "id": 4,
         "title": "Secret Door",
@@ -36,16 +35,16 @@ humbug_songs = [
         "album": "Humbug",
         "release_date": "2009-08-19",
         "time": "3:43",
-        
+
     }
-
-
 ]
+
 
 class HumbugSongs(Resource):
     def get(self):
         return {'Humbug Songs': humbug_songs}
-    
+
+
 class HumbugId(Resource):
     args = reqparse.RequestParser()
     args.add_argument('title')
@@ -59,12 +58,13 @@ class HumbugId(Resource):
             if song['id'] == humbug_id:
                 return song
         return None
+
     def get(self, humbug_id):
         song = HumbugId.find_song(humbug_id)
         if song:
             return song
         return {'Humbug Songs': None}, 404
-       
+
     def post(self, humbug_id):
 
         data_post = HumbugId.args.parse_args()
@@ -83,14 +83,16 @@ class HumbugId(Resource):
 
     def put(self, humbug_id):
         data_put = HumbugId.args.parse_args()
-        new_song = { 'id': humbug_id, **data_put}
+        new_song = {'id': humbug_id, **data_put}
         song = HumbugId.find_song(humbug_id)
-        if song: 
+        if song:
             song.update(new_song)
             return new_song, 200
-        
+
         humbug_songs.append(new_song)
         return new_song, 201
 
     def delete(self, humbug_id):
-        pass
+        global humbug_songs
+        humbug_songs = [song for song in humbug_songs if song['id'] != humbug_id]
+        return {'message': 'Humbug song deleted.'}
