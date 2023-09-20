@@ -1,1 +1,0 @@
-print('Eu não aguento mais iniciar um curso e printar "Olá mundo!" ')
