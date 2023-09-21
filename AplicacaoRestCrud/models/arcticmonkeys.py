@@ -8,8 +8,9 @@ class HumbugModel(db.Model):
     title = db.Column(db.String(80))
     artist = db.Column(db.String(80))
     album = db.Column(db.String(80))
-    release_date = db.Column(db.Date)
+    release_date = db.Column(db.String(30))
     time = db.Column(db.String(80))
+    
 
     def __init__(self, id, title, artist, album, release_date, time):
         self.id = id
@@ -28,3 +29,14 @@ class HumbugModel(db.Model):
             'release_date': self.release_date,
             'time': self.time
         }
+    
+    @classmethod
+    def find_song(cls, song_id):
+        song = cls.query.filter_by(id=song_id).first() # Select * from songs where id = $id 
+        if song:
+            return song
+        return None
+    
+    def save_song(self):
+        db.session.add(self)
+        db.session.commit()
