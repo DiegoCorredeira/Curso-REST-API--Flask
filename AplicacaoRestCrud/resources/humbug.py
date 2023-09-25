@@ -1,6 +1,6 @@
 from flask import json
 from flask_restful import Resource, reqparse
-from models.arcticmonkeys import HumbugModel
+from models.humbug import HumbugModel
 
 class HumbugSongs(Resource):
     def get(self):
