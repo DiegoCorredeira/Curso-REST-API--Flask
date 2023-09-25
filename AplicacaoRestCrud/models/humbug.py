@@ -11,6 +11,7 @@ class HumbugModel(db.Model):
     album = db.Column(db.String(80))
     release_date = db.Column(db.String(30))
     time = db.Column(db.String(80))
+
     
 
     def __init__(self, id, title, artist, album, release_date, time):
@@ -20,6 +21,7 @@ class HumbugModel(db.Model):
         self.album = album
         self.release_date = release_date
         self.time = time
+        
 
     def json(self):
         return {
