@@ -45,7 +45,7 @@ humbug_songs = [
 
 class HumbugSongs(Resource):
     def get(self):
-        return {'Humbug Songs': [song.json() for song in HumbugModel.query.all()]}
+        return {'Humbug Songs': [song.json() for song in HumbugModel.query.all()]} # SELECT * FROM songs
 
 
 class HumbugId(Resource):
