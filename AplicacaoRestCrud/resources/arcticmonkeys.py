@@ -50,11 +50,11 @@ class HumbugSongs(Resource):
 
 class HumbugId(Resource):
     args = reqparse.RequestParser()
-    args.add_argument('title')
-    args.add_argument('artist')
-    args.add_argument('album')
-    args.add_argument('release_date')
-    args.add_argument('time')
+    args.add_argument('title', type=str, required=True, help="The field 'title' cannot be left blank.")
+    args.add_argument('artist', type=str, required=True, help="The field 'artist' cannot be left blank.")
+    args.add_argument('album', type=str, required=True, help="The field 'album' cannot be left blank.")
+    args.add_argument('release_date', type=str, required=True, help="The field 'release_date' cannot be left blank.")
+    args.add_argument('time', type=str, required=True, help="The field 'time' cannot be left blank.")
 
     def get(self, humbug_id):
         song = HumbugModel.find_song(humbug_id)
@@ -67,7 +67,10 @@ class HumbugId(Resource):
             return {"message": f"Humbug song id {humbug_id} already exists."}, 400 # Bad Request
         data_post = HumbugId.args.parse_args()
         new_song = HumbugModel(humbug_id, **data_post)
-        new_song.save_song()
+        try:
+            new_song.save_song()
+        except:
+            return {'message': 'An internal error ocurred trying to save humbug song.'}, 500
         return new_song.json(), 201 # Created
 
     def put(self, humbug_id):
@@ -79,11 +82,17 @@ class HumbugId(Resource):
             return search_song.json(), 200
         
         new_song = HumbugModel(humbug_id, **data_put)
-        new_song.save_song()
-        return new_song.json(), 201
+        try:
+            new_song.save_song()
+        except:
+            return {'message': 'An internal error ocurred trying to save humbug song.'}, 500
+        return new_song.json(), 201 # Created
     
     def delete(self, humbug_id):
         song = HumbugModel.find_song(humbug_id)
         if song:
-            song.delete_song()
+            try:
+                song.delete_song()
+            except:
+                return {'message': 'An internal error ocurred trying to delete humbug song.'}, 500    
             return {'message': 'Humbug song deleted.'}, 404
