@@ -18,7 +18,7 @@ class User(Resource):
                 user.delete_user()
             except:
                 return {'message': ''}, 500
-            return {'message': 'Humbug song deleted.'}, 404
+            return {'message': 'User has deleted.'}, 404
 
 
 class UserRegister(Resource):
