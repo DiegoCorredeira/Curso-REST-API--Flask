@@ -3,7 +3,7 @@ from sql_alchemy import db
 
 
 class HumbugModel(db.Model):
-    __tablename__ = 'songs'
+    __tablename__ = 'Humbugsongs'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80))
