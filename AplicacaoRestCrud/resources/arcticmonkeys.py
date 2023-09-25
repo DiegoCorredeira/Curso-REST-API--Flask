@@ -72,16 +72,18 @@ class HumbugId(Resource):
 
     def put(self, humbug_id):
         data_put = HumbugId.args.parse_args()
-        new_song = HumbugModel(humbug_id, **data_put).json()
-        song = HumbugModel.find_song(humbug_id)
-        if song:
-            song.update(new_song)
-            return new_song, 200
-
-        humbug_songs.append(new_song)
-        return new_song, 201
+        search_song = HumbugModel.find_song(humbug_id)
+        if search_song:
+            search_song.update_song(**data_put)
+            search_song.save_song()
+            return search_song.json(), 200
+        
+        new_song = HumbugModel(humbug_id, **data_put)
+        new_song.save_song()
+        return new_song.json(), 201
     
     def delete(self, humbug_id):
-        global humbug_songs
-        humbug_songs = [song for song in humbug_songs if song['id'] != humbug_id]
-        return {'message': 'Humbug song deleted.'}
+        song = HumbugModel.find_song(humbug_id)
+        if song:
+            song.delete_song()
+            return {'message': 'Humbug song deleted.'}, 404

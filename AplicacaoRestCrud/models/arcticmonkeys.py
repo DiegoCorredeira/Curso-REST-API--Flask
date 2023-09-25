@@ -1,3 +1,4 @@
+from requests import delete
 from sql_alchemy import db
 
 
@@ -39,4 +40,15 @@ class HumbugModel(db.Model):
     
     def save_song(self):
         db.session.add(self)
+        db.session.commit()
+        
+    def update_song(self, title, artist, album, release_date, time):
+        self.title = title
+        self.artist = artist
+        self.album = album
+        self.release_date = release_date
+        self.time = time
+    
+    def delete_song(self):
+        db.session.delete(self)
         db.session.commit()
