@@ -13,11 +13,8 @@
 ### Seção 2 : Python Iniciante
 
 * [Hello World!](https://github.com/DiegoCorredeira/Curso-REST-API--Flask/blob/main/pythonIniciante/01.py)
-<<<<<<< HEAD
 * [Compreensão de Listas](https://github.com/DiegoCorredeira/Curso-REST-API--Flask/blob/main/pythonIniciante/Compreens%C3%A3odeLista(ListComprehension))
-=======
 * [Compreensão de Listas](https://github.com/DiegoCorredeira/Curso-REST-API--Flask/blob/main/pythonIniciante/Compreens%C3%A3odeLista(ListComprehension).ipynb)
->>>>>>> 899964e9a530e103ad510e5536f19d15df166adc
 * [Dicionários](https://github.com/DiegoCorredeira/Curso-REST-API--Flask/blob/main/pythonIniciante/Dicion%C3%A1rios.ipynb)
 * [Objetos e Classes](https://github.com/DiegoCorredeira/Curso-REST-API--Flask/blob/main/pythonIniciante/ClassesEObjetos.ipynb)
 * [Herança](https://github.com/DiegoCorredeira/Curso-REST-API--Flask/blob/main/pythonIniciante/Heran%C3%A7a.ipynb)
