@@ -2,12 +2,32 @@ from flask import json
 from flask_restful import Resource, reqparse
 from models.suckitandsee import SuckItAndSeeModel
 from flask_jwt_extended import jwt_required
+from flask import request
 
 
 class SuckItAndSeeSongs(Resource):
     def get(self):
-        # SELECT * FROM songs
-        return {'Suck It And See Songs': [song.json() for song in SuckItAndSeeModel.query.all()]}
+
+        title_filter = request.args.get('title')
+        artist_filter = request.args.get('artist')
+        album_filter = request.args.get('album')
+        release_date_filter = request.args.get('release_date')
+        time_filter = request.args.get('time')
+        
+        songs = SuckItAndSeeModel.query
+
+        if title_filter:
+            songs = songs.filter_by(title=title_filter)
+        if artist_filter:
+            songs = songs.filter_by(artist=artist_filter)
+        if album_filter:
+            songs = songs.filter_by(album=album_filter)
+        if release_date_filter:
+            songs = songs.filter_by(release_date=release_date_filter)
+        if time_filter:
+            songs = songs.filter_by(time=time_filter)
+
+        return {'Suck It And See Songs': [song.json() for song in songs.all()]}
 
 
 class SuckItAndSeeId(Resource):
@@ -67,3 +87,4 @@ class SuckItAndSeeId(Resource):
             except:
                 return {'message': 'An internal error ocurred trying to delete Suck It And See song.'}, 500
             return {'message': 'Suck It And See song deleted.'}, 404
+

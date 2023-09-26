@@ -1,6 +1,4 @@
-import json
 from flask import Flask, jsonify
-from flask_restful import Resource
 from blacklist import BLACKLIST
 from flask_restful import Api
 from resources.WPSIATWIN import WPSAMTWINSongs, WPSAMTWINId

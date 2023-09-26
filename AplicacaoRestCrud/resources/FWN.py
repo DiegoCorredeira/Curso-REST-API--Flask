@@ -2,11 +2,29 @@ from flask import json
 from flask_restful import Resource, reqparse
 from models.FWN import FWNModel
 from flask_jwt_extended import jwt_required
+from flask import request
 
 
 class FWNSongs(Resource):
     def get(self):
-        # SELECT * FROM songs
+        title_filter = request.args.get('title')
+        artist_filter = request.args.get('artist')
+        album_filter = request.args.get('album')
+        release_date_filter = request.args.get('release_date')
+        time_filter = request.args.get('time')
+        
+        songs = FWNModel.query
+
+        if title_filter:
+            songs = songs.filter_by(title=title_filter)
+        if artist_filter:
+            songs = songs.filter_by(artist=artist_filter)
+        if album_filter:
+            songs = songs.filter_by(album=album_filter)
+        if release_date_filter:
+            songs = songs.filter_by(release_date=release_date_filter)
+        if time_filter:
+            songs = songs.filter_by(time=time_filter)
         return {"Favourite Worst Nightmare Songs": [song.json() for song in FWNModel.query.all()]}
 
 

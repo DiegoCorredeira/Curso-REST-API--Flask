@@ -2,12 +2,32 @@ from flask import json
 from flask_restful import Resource, reqparse
 from models.humbug import HumbugModel
 from flask_jwt_extended import jwt_required
+from flask import request
 
 
 class HumbugSongs(Resource):
     def get(self):
-        all_songs = HumbugModel.query.all()
-        return {'All Humbug Songs': [song.json() for song in all_songs]}
+        title_filter = request.args.get('title')
+        artist_filter = request.args.get('artist')
+        album_filter = request.args.get('album')
+        release_date_filter = request.args.get('release_date')
+        time_filter = request.args.get('time')
+        
+        songs = HumbugModel.query
+
+        if title_filter:
+            songs = songs.filter_by(title=title_filter)
+        if artist_filter:
+            songs = songs.filter_by(artist=artist_filter)
+        if album_filter:
+            songs = songs.filter_by(album=album_filter)
+        if release_date_filter:
+            songs = songs.filter_by(release_date=release_date_filter)
+        if time_filter:
+            songs = songs.filter_by(time=time_filter)
+            
+        return {"Humbug Songs": [song.json() for song in HumbugModel.query.all()]}
+
 
 
 class HumbugId(Resource):

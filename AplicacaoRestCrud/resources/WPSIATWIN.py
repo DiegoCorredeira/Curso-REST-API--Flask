@@ -1,4 +1,5 @@
 from flask import json
+from flask import request
 from flask_restful import Resource, reqparse
 from models.WPSIATWIN import WPSIATWINModel
 from flask_jwt_extended import jwt_required
@@ -6,7 +7,24 @@ from flask_jwt_extended import jwt_required
 
 class WPSAMTWINSongs(Resource):
     def get(self):
-        # SELECT * FROM songs
+        title_filter = request.args.get('title')
+        artist_filter = request.args.get('artist')
+        album_filter = request.args.get('album')
+        release_date_filter = request.args.get('release_date')
+        time_filter = request.args.get('time')
+        
+        songs = WPSIATWINModel.query
+
+        if title_filter:
+            songs = songs.filter_by(title=title_filter)
+        if artist_filter:
+            songs = songs.filter_by(artist=artist_filter)
+        if album_filter:
+            songs = songs.filter_by(album=album_filter)
+        if release_date_filter:
+            songs = songs.filter_by(release_date=release_date_filter)
+        if time_filter:
+            songs = songs.filter_by(time=time_filter)
         return {" Whatever People Say I am, That's What I'm Not Songs": [song.json() for song in WPSIATWINModel.query.all()]}
 
 
