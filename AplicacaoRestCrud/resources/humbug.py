@@ -6,8 +6,8 @@ from flask_jwt_extended import jwt_required
 
 class HumbugSongs(Resource):
     def get(self):
-        # SELECT * FROM songs
-        return {'Humbug Songs': [song.json() for song in HumbugModel.query.all()]}
+        all_songs = HumbugModel.query.all()
+        return {'All Humbug Songs': [song.json() for song in all_songs]}
 
 
 class HumbugId(Resource):

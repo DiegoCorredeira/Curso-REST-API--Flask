@@ -1,4 +1,6 @@
+import json
 from flask import Flask, jsonify
+from flask_restful import Resource
 from blacklist import BLACKLIST
 from flask_restful import Api
 from resources.WPSIATWIN import WPSAMTWINSongs, WPSAMTWINId
@@ -6,6 +8,7 @@ from resources.FWN import FWNSongs, FWNId
 from resources.humbug import HumbugSongs, HumbugId
 from resources.suckitandsee import SuckItAndSeeSongs, SuckItAndSeeId
 from resources.user import User, UserLogin, UserRegister, UserLogin, UserLogout
+from resources.alldata import AllData
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
@@ -27,7 +30,6 @@ def check_blacklist(self,token):
 @jwt.revoked_token_loader
 def access_token_invalid():
     return jsonify({'message': 'You have been logged out.'}), 401 # Unauthorized
-
 resources = [
     (HumbugSongs, '/humbug'),
     (HumbugId, '/humbug/<int:humbug_id>'),
@@ -37,6 +39,7 @@ resources = [
     (FWNId, '/FWN/<int:FWN_id>'),
     (SuckItAndSeeSongs, '/suckitandsee'),
     (SuckItAndSeeId, '/suckitandsee/<int:suckitandsee_id>'),
+    (AllData, '/all'),
     (User, '/user/<int:user_id>'),
     (UserRegister, '/register'), 
     (UserLogin, '/login'),

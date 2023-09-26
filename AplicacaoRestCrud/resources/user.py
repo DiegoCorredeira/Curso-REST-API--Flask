@@ -68,3 +68,4 @@ class UserLogout(Resource):
         jwt_id = get_jwt()['jti'] # JWT Token Identifier
         BLACKLIST.add(jwt_id)
         return {'message': 'Logged out successfully!'}, 200
+    
