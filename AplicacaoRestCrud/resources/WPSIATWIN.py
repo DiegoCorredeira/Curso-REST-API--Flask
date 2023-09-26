@@ -7,7 +7,7 @@ class WPSAMTWINSongs(Resource):
         return {" Whatever People Say I am, That's What I'm Not Songs": [song.json() for song in WPSIATWINModel.query.all()]} # SELECT * FROM songs
 
 
-class WPSAMTWINid(Resource):
+class WPSAMTWINId(Resource):
     args = reqparse.RequestParser()
     args.add_argument('title', type=str, required=True, help="The field 'title' cannot be left blank.")
     args.add_argument('artist', type=str, required=True, help="The field 'artist' cannot be left blank.")
@@ -25,7 +25,7 @@ class WPSAMTWINid(Resource):
     def post(self, WPSIATWIN_id):
         if WPSIATWINModel.find_song(WPSIATWIN_id):
             return {"message": f"Humbug song id {WPSIATWIN_id} already exists."}, 400 # Bad Request
-        data_post = WPSAMTWINid.args.parse_args()
+        data_post = WPSAMTWINId.args.parse_args()
         new_song = WPSIATWINModel(WPSIATWIN_id, **data_post)
         try:
             new_song.save_song()
@@ -34,7 +34,7 @@ class WPSAMTWINid(Resource):
         return new_song.json(), 201 # Created
     
     def put(self, WPSIATWIN_id):
-        data_put = WPSAMTWINid.args.parse_args()
+        data_put = WPSAMTWINId.args.parse_args()
         search_song = WPSIATWINModel.find_song(WPSIATWIN_id)
         if search_song:
             search_song.update_song(**data_put)

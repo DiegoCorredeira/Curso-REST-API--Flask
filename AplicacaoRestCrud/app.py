@@ -1,8 +1,9 @@
 from flask import Flask
 from flask_restful import Api
-from resources.FWN import FWNSongs, FWNId
 from resources.WPSIATWIN import WPSAMTWINSongs, WPSAMTWINId
+from resources.FWN import FWNSongs, FWNId
 from resources.humbug import HumbugSongs, HumbugId
+from resources.suckitandsee import SuckItAndSeeSongs, SuckItAndSeeId
 from resources.user import User, UserRegister
 
 app = Flask(__name__)
@@ -23,6 +24,8 @@ resources = [
     (WPSAMTWINId, '/WPSIATWIN/<int:WPSIATWIN_id>'),
     (FWNSongs, '/FWN'),
     (FWNId, '/FWN/<int:FWN_id>'),
+    (SuckItAndSeeSongs, '/suckitandsee'),
+    (SuckItAndSeeId, '/suckitandsee/<int:suckitandsee_id>'),
     (User, '/user/<int:user_id>'),
     (UserRegister, '/register')
 ]

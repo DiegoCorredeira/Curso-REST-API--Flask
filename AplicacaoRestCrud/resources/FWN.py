@@ -7,7 +7,7 @@ class FWNSongs(Resource):
         return {"Favourite Worst Nightmare Songs": [song.json() for song in FWNModel.query.all()]} # SELECT * FROM songs
 
 
-class FWNid(Resource):
+class FWNId(Resource):
     args = reqparse.RequestParser()
     args.add_argument('title', type=str, required=True, help="The field 'title' cannot be left blank.")
     args.add_argument('artist', type=str, required=True, help="The field 'artist' cannot be left blank.")
@@ -25,7 +25,7 @@ class FWNid(Resource):
     def post(self,FWN_id):
         if FWNModel.find_song(FWN_id):
             return {"message": f"Favourite Worst Nightmare Songs song id {FWN_id} already exists."}, 400 # Bad Request
-        data_post = FWNid.args.parse_args()
+        data_post = FWNId.args.parse_args()
         new_song = FWNModel(FWN_id, **data_post)
         try:
             new_song.save_song()
@@ -34,7 +34,7 @@ class FWNid(Resource):
         return new_song.json(), 201 # Created
     
     def put(self,FWN_id):
-        data_put = FWNid.args.parse_args()
+        data_put = FWNId.args.parse_args()
         search_song = FWNModel.find_song(FWN_id)
         if search_song:
             search_song.update_song(**data_put)
