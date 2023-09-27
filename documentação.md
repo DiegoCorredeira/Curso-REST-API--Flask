@@ -8,7 +8,7 @@ Este documento explica com exemplos como utilizar recursos disponiveis no REST A
 
 #### Requisição
 
-Requisição para listar todos os hotéis do sistema, podendo opcionalmente receber filtros personalizados via path, de forma que se o cliente não definir nenhum parâmetro de consulta (nenhum filtro), os parâmetros receberão os valores padrão.
+Requisição para listar todos as músicas do sistema, podendo opcionalmente receber filtros personalizados via path, de forma que se o cliente não definir nenhum parâmetro de consulta (nenhum filtro), os parâmetros receberão os valores padrão.
 
 ⦁	Possíveis parâmetros de consulta. Padrão: Null.
 ⦁	title ⇒ Filtra músicas pelo nome. Padrão: Null.
