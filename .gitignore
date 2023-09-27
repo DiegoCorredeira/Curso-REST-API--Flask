@@ -4,3 +4,6 @@
 /pythonIniciante
 /markdown_texts
 /image
+resources/__pycache__
+AplicacaoRestCrud/__pycache__
+models/__pycache__

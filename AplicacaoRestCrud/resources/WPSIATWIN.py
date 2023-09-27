@@ -25,7 +25,7 @@ class WPSAMTWINSongs(Resource):
             songs = songs.filter_by(release_date=release_date_filter)
         if time_filter:
             songs = songs.filter_by(time=time_filter)
-        return {" Whatever People Say I am, That's What I'm Not Songs": [song.json() for song in WPSIATWINModel.query.all()]}
+        return {"Whatever People Say I am, That's What I'm Not Songs": [song.json() for song in songs.all()]}
 
 
 class WPSAMTWINId(Resource):

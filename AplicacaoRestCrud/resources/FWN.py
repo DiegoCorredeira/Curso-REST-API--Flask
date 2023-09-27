@@ -12,7 +12,7 @@ class FWNSongs(Resource):
         album_filter = request.args.get('album')
         release_date_filter = request.args.get('release_date')
         time_filter = request.args.get('time')
-        
+
         songs = FWNModel.query
 
         if title_filter:
@@ -25,7 +25,7 @@ class FWNSongs(Resource):
             songs = songs.filter_by(release_date=release_date_filter)
         if time_filter:
             songs = songs.filter_by(time=time_filter)
-        return {"Favourite Worst Nightmare Songs": [song.json() for song in FWNModel.query.all()]}
+        return {"Favourite Worst Nightmare Songs": [song.json() for song in songs.all()]}
 
 
 class FWNId(Resource):
