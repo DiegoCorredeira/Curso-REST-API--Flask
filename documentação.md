@@ -1,4 +1,4 @@
-# oDocumentação da API de Músicas dos Arctic Monekys
+# Documentação da API de Músicas dos Arctic Monekys
 
 Este documento fornece informações detalhadas sobre como utilizar os recursos disponíveis na REST API de músicas do Arctic Monkeys. Ele descreve as diferentes operações possíveis, as formas de realizar uma requisição e as respostas esperadas.
 
