@@ -1,259 +1,322 @@
-# Documentação REST API Arctic Monkeys Songs
+# Documentação da API de Músicas dos Arctic Monekys
 
+Este documento fornece informações detalhadas sobre como utilizar os recursos disponíveis na REST API de músicas do Arctic Monkeys. Ele descreve as diferentes operações possíveis, as formas de realizar uma requisição e as respostas esperadas.
 
-Este documento explica com exemplos como utilizar recursos disponiveis no REST API de Músicas do Arctic Monkeys. Assim como , as formas de se realizar uma requisição e suas possiveis respostas.
+## 1. Consultar Músicas / Albuns
 
+### Requisição para Listar músicas
 
-# 1. Consultar Músicas / Albuns
+Realize uma requisição GET para listar todos as músicas do sistema. Você pode opcionalmente incluir filtros personalizados via parâmetros de consulta na URL. Caso nenhum filtro seja definido, os valores padrão serão utilizados.
 
-#### Requisição
+#### Possíveis parâmetros de consulta:
 
-Requisição para listar todos as músicas do sistema, podendo opcionalmente receber filtros personalizados via path, de forma que se o cliente não definir nenhum parâmetro de consulta (nenhum filtro), os parâmetros receberão os valores padrão.
+- `title`: Filtra músicas pelo nome. Padrão: Null.
+- `artist`: Filtra músicas pelo nome dos artistas envolvidos. Padrão: Null.
+- `album`: Filtra músicas pelo album. Padrão: Null.
+- `released_date`: Filtra músicas pela data de lançamento. Padrão: Null.
+- `time`: Filtra músicas pelo tempo de duração. Padrão: Null.
 
-⦁	Possíveis parâmetros de consulta. Padrão: Null.
-⦁	title ⇒ Filtra músicas pelo nome. Padrão: Null.
-⦁	artist ⇒ Filtra músicas pelo nome dos artistas envolvidos. Padrão: Null.
-⦁	album ⇒ Filtra músicas pelo album. Padrão: Null.
-⦁	released_date ⇒ Filtra músicas pela data de lançamento. Padrão: Null.
-⦁	time ⇒ Filtra músicas pelo tempo de duração. Padrão: Null.
+#### Exemplo de Requisição:
 
-| Method        | URL                          |
-| ------------- | ---------------------------- |
-| **GET** | /all?release_date=2009-08-19 |
+```http
+GET /all?release_date=2009-08-19
+```
 
-#### Resposta
+#### Resposta:
 
 Como resposta, obtemos uma lista com as músicas que se enquadram nos filtros de requisição acima.
 
-| Status  |
-| ------- |
-| 200, OK |
+- Status: 200 OK
 
-#### Response Body: 
+### Requisição para Visualizar Dados de um album especifico
 
+Realize uma requisição GET para visualizar os dados de um album específico, fornecendo o ID do album na URL.
+
+#### Exemplo de Requisição:
+
+```http
+GET /all
+
+GET /suckitandsee
+
+GET /WPSIATWIN
+
+GET /FWN
+
+GET /humbug
 ```
-"humbug_songs": {
-        "All Humbug Songs": {
-            "Humbug Songs": [
-                {
-                    "id": 1,
-                    "title": "My Propeller",
-                    "artist": "Arctic Monkeys",
-                    "album": "Humbug",
-                    "release_date": "2009-08-19",
-                    "time": "3:27"
-                },
-                {
-                    "id": 2,
-                    "title": "Crying Lightning",
+
+#### Resposta:
+
+Como resposta, você obterá um JSON contendo os dados do album/música requisitada.
+
+- Status: 200 OK
+
+### Requisição para música inexistente
+
+Caso você pesquise por uma música que não existe, receberá uma mensagem de erro indicando que a música não foi encontrada.
+
+#### Exemplo de Requisição:
+
+```http
+GET /FWN/id_que_nao_existe
+```
+
+#### Resposta:
+
+- Status: 404 Not Found
+
+## 2. Cadastro de Usuário
+
+### Requisição para Cadastrar um Novo Usuário
+
+Para cadastrar um novo usuário, realize uma requisição POST para a rota `/cadastro`. Certifique-se de incluir o cabeçalho `Content-Type: application/json` e fornecer os dados do usuário no corpo da requisição.
+
+#### Exemplo de Requisição:
+
+```http
+POST /cadastro
+
+Header:
+Content-Type: application/json
+
+Request Body:
+{
+    "nome": "Nome do Usuário",
+    "email": "usuario@email.com",
+    "senha": "senha123"
+}
+```
+
+#### Resposta:
+
+Você receberá uma mensagem de sucesso informando que o usuário foi criado.
+
+- Status: 201 Created
+
+### Requisição para Cadastrar Usuário Existente
+
+Se você tentar cadastrar um usuário com um login que já existe, receberá uma mensagem de erro informando que o usuário com o mesmo nome já existe.
+
+#### Exemplo de Requisição:
+
+```http
+POST /cadastro
+
+Header:
+Content-Type: application/json
+
+Request Body:
+{
+    "nome": "ana",
+    "email": "ana@email.com",
+    "senha": "outraSenha123"
+}
+```
+
+#### Resposta:
+
+- Status: 400 Bad Request
+
+## 3. Login de Usuário
+
+### Requisição para Fazer Login de Usuário
+
+Para fazer login com um usuário, realize uma requisição POST para a rota `/login`. Inclua o cabeçalho `Content-Type: application/json` e forneça as credenciais do usuário no corpo da requisição.
+
+#### Exemplo de Requisição:
+
+```http
+POST /login
+
+Header:
+Content-Type: application/json
+
+Request Body:
+{
+    "nome": "Nome do Usuário",
+    "senha": "senha123"
+}
+```
+
+#### Resposta:
+
+Você receberá um token de acesso que será necessário para fazer requisições que exigem autenticação.
+
+- Status: 200 OK
+
+### Requisição para Login com Usuário Inexistente
+
+Se você tentar fazer login com um usuário que não existe ou inserir credenciais incorretas, receberá uma mensagem de erro indicando que o usuário ou senha estão incorretos.
+
+#### Exemplo de Requisição:
+
+```http
+POST /login
+
+Header:
+Content-Type: application/json
+
+Request Body:
+{
+    "nome": "usuario_inexistente",
+    "senha": "senha_incorreta"
+}
+```
+
+#### Resposta:
+
+- Status: 401 Unauthorized
+
+## 4. Criar Album
+
+### Requisição para Criar um Novo Album
+
+Para criar um novo album, realize uma requisição POST para a rota `/novoalbum/{album_id}`. Certifique-se de incluir o cabeçalho `Content-Type: application/json` e um token de acesso no cabeçalho de autorização.
+
+#### Exemplo de Requisição:
+
+```http
+POST /novoalbum/teste
+
+Header:
+Content-Type: application/json
+Authorization: Bearer {token_de_acesso}
+
+Request Body:
+{
+	             "title": "Secret Door",
                     "artist": "Arctic Monkeys",
                     "album": "Humbug",
                     "release_date": "2009-08-19",
                     "time": "3:43"
-                },
-                {
-                    "id": 3,
-                    "title": "Dangerouss Animals",
-                    "artist": "Arctic Monkeys",
-                    "album": "Humbug",
-                    "release_date": "2009-08-19",
-                    "time": "3:30"
-                },
-                {
-                    "id": 4,
+}
+```
+
+#### Resposta:
+
+Você receberá uma mensagem de sucesso ao criar a nova música pela primeira vez. Ao tentar criar novamente uma música com o mesmo ID, receberá uma mensagem de erro indicando que o ID já existe.
+
+- Status: 201 Created (Primeira vez)
+- Status: 400 Bad Request (ID já existe)
+
+## 5. Atualizar Músicas
+
+### Requisição para Atualizar  Músicas
+
+Para atualizar os dados de um album, realize uma requisição PUT para a rota `/FWN/{fwn_id}`. Certifique-se de incluir o cabeçalho `Content-Type: application/json` e um token de acesso no cabeçalho de autorização.
+
+#### Exemplo de Requisição:
+
+```http
+PUT /FWN/1
+
+Header:
+Content-Type: application/json
+Authorization: Bearer {token_de_acesso}
+
+Request Body:
+{
                     "title": "Secret Door",
                     "artist": "Arctic Monkeys",
                     "album": "Humbug",
                     "release_date": "2009-08-19",
                     "time": "3:43"
-                },
-                {
-                    "id": 5,
-                    "title": "Potion Approaching",
-                    "artist": "Arctic Monkeys",
-                    "album": "Humbug",
-                    "release_date": "2009-08-19",
-                    "time": "3:32"
-                },
-                {
-                    "id": 6,
-                    "title": "Fire and the Thud",
-                    "artist": "Arctic Monkeys",
-                    "album": "Humbug",
-                    "release_date": "2009-08-19",
-                    "time": "3:57"
-                },
-                {
-                    "id": 7,
-                    "title": "Cornerstone",
-                    "artist": "Arctic Monkeys",
-                    "album": "Humbug",
-                    "release_date": "2009-08-19",
-                    "time": "3:17"
-                },
-                {
-                    "id": 8,
-                    "title": "Dance Little Liar",
-                    "artist": "Arctic Monkeys",
-                    "album": "Humbug",
-                    "release_date": "2009-08-19",
-                    "time": "4:43"
-                },
-                {
-                    "id": 9,
-                    "title": "Pretty Visitors",
-                    "artist": "Arctic Monkeys",
-                    "album": "Humbug",
-                    "release_date": "2009-08-19",
-                    "time": "3:40"
-                },
-                {
-                    "id": 10,
-                    "title": "The Jeweller's Hands",
-                    "artist": "Arctic Monkeys",
-                    "album": "Humbug",
-                    "release_date": "2009-08-19",
-                    "time": "5:43"
-                }
-            ]
-        }
-    },
-```
-
-
-
-### Requisição
-
-Requisição para visualizar os dados de um album especifico (GET)
-
-/all
-
-/suckitandsee
-
-/WPSIATWIN
-
-/FWN
-
-/humbug
-
-
-### Resposta
-
-Resposta: 200, OK
-
-### Response Body
-
-```
-"Suck It And See Songs": [
-        {
-            "id": 1,
-            "title": "She's Thunderstorms",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "3:55"
-        },
-        {
-            "id": 2,
-            "title": "Black Treacle",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "3:35"
-        },
-        {
-            "id": 3,
-            "title": "Brick by Brick",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "2:59"
-        },
-        {
-            "id": 4,
-            "title": "The Hellcat Spangled Shalalala",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "3:00"
-        },
-        {
-            "id": 5,
-            "title": "Don't Sit Down 'Cause I've Moved Your Chair",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "3:04"
-        },
-        {
-            "id": 6,
-            "title": "Library Pictures",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "2:22"
-        },
-        {
-            "id": 7,
-            "title": "All My Own Stunts",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "3:52"
-        },
-        {
-            "id": 8,
-            "title": "Reckless Serenade",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "2:43"
-        },
-        {
-            "id": 9,
-            "title": "Piledriver Waltz",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "3:24"
-        },
-        {
-            "id": 10,
-            "title": "Love Is a Laserquest",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "3:12"
-        },
-        {
-            "id": 11,
-            "title": "Suck It and See",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "3:46"
-        },
-        {
-            "id": 12,
-            "title": "That's Where You're Wrong",
-            "artist": "Arctic Monkeys",
-            "album": "Suck It And See",
-            "release_date": "2011-06-07",
-            "time": "4:17"
-        }
-    ]
 }
 ```
 
+#### Resposta:
 
-### Requisição
+Você receberá uma mensagem de sucesso ao atualizar os dados da música, juntamente com o status code 200 OK. O PUT também pode criar uma nova música se o ID não existir, emitindo uma mensagem de 201 Created na primeira vez e 200 OK nas subsequentes.
 
-| Method | URL                          |
-| ------ | ---------------------------- |
-| GET    | /suckitandsee/id_inexistente |
+- Status: 200 OK
+- Status: 201 Created (Primeira vez)
+- Status: 400 Unauthorized (Token de acesso inválido)
 
-### Resposta
+## 6. Deletar música
 
-| Status         | Response Body                          |
-| -------------- | -------------------------------------- |
-| 404, not found | {<br />   "message": "null" <br />} |
+### Requisição para Deletar uma música
+
+Para deletar uma música, realize uma requisição DELETE para a rota `/FWN/{FWN_id}`. Certifique-se de incluir um token de acesso no cabeçalho de autorização.
+
+#### Exemplo de Requisição:
+
+```http
+DELETE /FWN/teste
+
+Header:
+Authorization: Bearer {token_de_acesso}
+```
+
+#### Resposta:
+
+Você receberá uma mensagem de sucesso ao deletar uma música existente. Ao tentar deletar a mesma música novamente, receberá um erro 404 Not Found indicando que a música não existe. Se você não enviar o token de autorização, receberá um erro 401 Unauthorized.
+
+- Status: 200 OK
+- Status: 404 Not Found
+- Status: 401 Unauthorized
+
+## 7. Logout de Usuário
+
+### Requisição para Fazer Logout de Usuário
+
+Para fazer logout de um usuário, realize uma requisição POST para a rota `/logout`. Envie o token de acesso no cabeçalho de autorização.
+
+#### Exemplo de Requisição:
+
+```http
+POST /logout
+
+Header:
+Authorization: Bearer {token_de_acesso}
+```
+
+#### Resposta:
+
+Você receberá uma mensagem de sucesso informando que o usuário foi deslogado. O token de acesso não funcionará mais em requisições subsequentes, a menos que o usuário faça login novamente.
+
+- Status: 200 OK
+
+## 8. Consultar Dados de Usuário
+
+### Requisição para Ler Dados de Usuário
+
+Para ler os dados de um usuário específico, realize uma requisição GET para a rota `/usuarios/{user_id}`. Certifique-se de incluir o cabeçalho `Content-Type: application/json`.
+
+#### Exemplo de Requisição:
+
+```http
+GET /user/2
+
+Header:
+Content-Type: application/json
+```
+
+#### Resposta:
+
+Você obterá os dados do usuário com o ID especificado, excluindo a senha.
+
+- Status: 200 OK
+
+## 9. Deletar Usuário
+
+### Requisição para Deletar um Usuário
+
+Para deletar um usuário, realize uma requisição DELETE para a rota `/usuarios/{user_id}`. Certifique-se de incluir um token de acesso no cabeçalho de autorização.
+
+#### Exemplo de Requisição:
+
+```http
+DELETE /user/2
+
+Header:
+Authorization: Bearer {token_de_acesso}
+```
+
+#### Resposta:
+
+Você receberá uma mensagem de sucesso ao deletar um usuário existente. Ao tentar deletar o mesmo usuário novamente, receberá um erro 404 Not Found indicando que o usuário não existe ou não foi encontrado. Se você enviar um token de autorização expirado, receberá um erro 401 Unauthorized.
+
+- Status: 200 OK
+- Status: 404 Not Found
+- Status: 401 Unauthorized
