@@ -1,4 +1,4 @@
-# Documentação da API de Músicas dos Arctic Monekys
+# oDocumentação da API de Músicas dos Arctic Monekys
 
 Este documento fornece informações detalhadas sobre como utilizar os recursos disponíveis na REST API de músicas do Arctic Monkeys. Ele descreve as diferentes operações possíveis, as formas de realizar uma requisição e as respostas esperadas.
 
@@ -70,12 +70,12 @@ GET /FWN/id_que_nao_existe
 
 ### Requisição para Cadastrar um Novo Usuário
 
-Para cadastrar um novo usuário, realize uma requisição POST para a rota `/cadastro`. Certifique-se de incluir o cabeçalho `Content-Type: application/json` e fornecer os dados do usuário no corpo da requisição.
+Para cadastrar um novo usuário, realize uma requisição POST para a rota `/register`. Certifique-se de incluir o cabeçalho `Content-Type: application/json` e fornecer os dados do usuário no corpo da requisição.
 
 #### Exemplo de Requisição:
 
 ```http
-POST /cadastro
+POST /register
 
 Header:
 Content-Type: application/json
@@ -101,7 +101,7 @@ Se você tentar cadastrar um usuário com um login que já existe, receberá uma
 #### Exemplo de Requisição:
 
 ```http
-POST /cadastro
+POST /register
 
 Header:
 Content-Type: application/json
@@ -281,7 +281,7 @@ Você receberá uma mensagem de sucesso informando que o usuário foi deslogado.
 
 ### Requisição para Ler Dados de Usuário
 
-Para ler os dados de um usuário específico, realize uma requisição GET para a rota `/usuarios/{user_id}`. Certifique-se de incluir o cabeçalho `Content-Type: application/json`.
+Para ler os dados de um usuário específico, realize uma requisição GET para a rota `/user/{user_id}`. Certifique-se de incluir o cabeçalho `Content-Type: application/json`.
 
 #### Exemplo de Requisição:
 
@@ -302,7 +302,7 @@ Você obterá os dados do usuário com o ID especificado, excluindo a senha.
 
 ### Requisição para Deletar um Usuário
 
-Para deletar um usuário, realize uma requisição DELETE para a rota `/usuarios/{user_id}`. Certifique-se de incluir um token de acesso no cabeçalho de autorização.
+Para deletar um usuário, realize uma requisição DELETE para a rota `/user/{user_id}`. Certifique-se de incluir um token de acesso no cabeçalho de autorização.
 
 #### Exemplo de Requisição:
 
